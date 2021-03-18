@@ -18,7 +18,7 @@
         @keyup.enter.native="handleinput">
       </el-input>
       <router-link :to="'/user/'+uid">
-        <el-button type="primary" icon="el-icon-search" id="search-button">搜索</el-button>
+        <el-button type="primary" icon="el-icon-search" id="search-button" @click="getUPDATA" ref="btn">搜索</el-button>
       </router-link>
 
     </div>
@@ -26,13 +26,16 @@
 </template>
 
 <script>
+
+
   export default {
     name: "Home",
     data() {
       return {
-        fit : 'fill',
+        fit: 'fill',
         src: require('../../assets/img/logo.jpg'),//VUE 使用：src获取图片源时，使用require来获取
         uid: '',
+
       }
     },
 
@@ -45,12 +48,18 @@
     },
 
     methods: {
-      handleinput: () => {
-        document.getElementById('search-button').click(); //监停键盘事件实现路由跳转
+      handleinput() {
+        this.$store.dispatch('getupdata', this.uid);
+        this.$router.push({ name: 'user', params: { uid: this.uid }})
+
+      },
+
+      getUPDATA() {
+        this.$store.dispatch('getupdata', this.uid)
+
+      }
+
     }
-
-    },
-
   }
 </script>
 

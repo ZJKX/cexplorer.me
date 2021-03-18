@@ -4,6 +4,9 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui';
 
+// 引入echarts4.9版本
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts;
 
 import 'assets/css/base.css';
 import 'element-ui/lib/theme-chalk/index.css';

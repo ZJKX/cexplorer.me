@@ -4,9 +4,9 @@ import VueRouter from 'vue-router'
 
 // 实现路由懒加载
 const Home = () => import('../components/content/Home');
-const about = () => import('../components/content/about');
-const upViews = () => import('../components/content/upViews');
-
+const about = () => import('../components/common/about');
+const upViews = () => import('../components/content/upcontent/upViews');
+const upCompreEval = () => import('../components/content/upcontent/upCompreEval');
 
 
 
@@ -28,8 +28,15 @@ const routes = [
     component: about,
   },
   {
+    name: 'user',
     path: '/user/:uid',
     component: upViews,
+    children: [
+      {
+        path : "upCompreEval",
+        component : upCompreEval
+      },
+    ]
   }
 
 ];
