@@ -10,6 +10,7 @@
         </div>
         <div class="line"></div>
       </el-header>
+      <el-container>
         <el-aside width="350px">
           <el-row class="tac">
             <el-col :span="12">
@@ -43,16 +44,33 @@
           <router-view></router-view>
         </el-main>
       </el-container>
+    </el-container>
   </div>
 </template>
 
 <script>
   export default {
     name: "upViews",
+
+    created() {
+      //在页面刷新时将vuex里的信息保存到sessionStorage里
+      window.addEventListener("beforeunload",()=>{
+        sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+      })
+    },
+
+    updated () {
+
+      // 在页面加载时读取sessionStorage里的状态信息
+      if (sessionStorage.getItem("store") ) {
+        this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
+      }
+    },
     data() {
+
       return {
         up_picture: this.$store.state.up_data.up_picture,
-        activeIndex: '/user/'+this.$store.state.up_uid+'/upCompreEval',
+        activeIndex: '/user/'+this.$store.state.up_data.up_uid+'/upCompreEval',
       }
     },
 
@@ -99,6 +117,7 @@
     text-align: left;
     line-height: 50px;
     align-items: baseline;
+
 
 
   }
